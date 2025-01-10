@@ -72,30 +72,12 @@ def get_Week_Classes(w):
 
 # 获取今日课程
 def get_Today_Class():
-    # 设置开学时间
-    start_year = localtime().tm_year  # 获取当前年份
-    start_month = 3                  # 开学月份
-    start_day = 1                    # 开学日期
-    start_date = datetime(start_year, start_month, start_day)
-
-    # 获取当前日期
-    current_year = localtime().tm_year
-    current_month = localtime().tm_mon
-    current_day = localtime().tm_mday
-    today_date = datetime(current_year, current_month, current_day)
-
-    # 计算今天是第几周
-    delta_days = (today_date - start_date).days
-    if delta_days < 0:
-        return []  # 如果当前日期在开学日期之前，返回空列表
-
-    week_number = (delta_days // 7) + 1  # 当前是第几周
-    weekday = today_date.weekday()      # 今天是周几（0 表示周一）
-
-    # 获取课程信息
-    todayClasses = get_Week_Classes(str(week_number))[weekday]
+    year = localtime().tm_year
+    month = localtime().tm_mon
+    day = localtime().tm_mday
+    today = datetime.date(datetime(year=year, month=month, day=day))
+    todayClasses = get_Week_Classes(None)[today.weekday()]
     return todayClasses
-
 
 
 # 获取指定星期几的课程
